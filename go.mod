@@ -1,4 +1,4 @@
-module webapi
+module github.com/faldyantono/GinGonic-WEB-API
 
 go 1.17
 

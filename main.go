@@ -10,7 +10,7 @@ func main() {
 	//TUGAS NO 1. : localhost:8080/item?judul=filosofi-teras&harga=76000
 	r.GET("/item", handler.GetItem)
 	//TUGAS NO 2 : localhost:8080/id/2/produk?name=tv&harga=4000000
-	r.GET("produk/:id/produk", handler.QueryProduct)
+	r.GET("id/:Id/produk", handler.QueryProduct)
 	//TUGAS NO 3 : bikin 5 router query string
 	r.GET("/item1", handler.GetProduct1)
 	r.GET("/item2", handler.GetProduct2)

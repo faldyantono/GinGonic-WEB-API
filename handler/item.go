@@ -6,12 +6,12 @@ import (
 
 func QueryProduct(c *gin.Context) {
 	name := c.Query("name")
-	id := c.Param("id")
-	harga := c.Param("harga")
-	time := c.Param("time")
+	Id := c.Param("Id")
+	harga := c.Query("harga")
+	time := c.Query("time")
 	c.JSON(200, gin.H{
 		"message":      "item name",
-		"id":           id,
+		"id":           Id,
 		"Product name": name,
 		"Price":        harga,
 		"Time":         time,
@@ -19,8 +19,8 @@ func QueryProduct(c *gin.Context) {
 }
 func GetItem(c *gin.Context) {
 	name := c.Query("name")
-	harga := c.Param("harga")
-	time := c.Param("time")
+	harga := c.Query("harga")
+	time := c.Query("time")
 	c.JSON(200, gin.H{
 		"message":      "item name",
 		"product name": name,
