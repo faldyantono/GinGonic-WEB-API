@@ -2,30 +2,29 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"time"
 )
 
 func QueryProduct(c *gin.Context) {
 	name := c.Query("name")
 	Id := c.Param("Id")
 	harga := c.Query("harga")
-	time := c.Query("time")
 	c.JSON(200, gin.H{
 		"message":      "item name",
 		"id":           Id,
 		"Product name": name,
 		"Price":        harga,
-		"Time":         time,
+		"Time":         time.Now(),
 	})
 }
 func GetItem(c *gin.Context) {
 	name := c.Query("name")
 	harga := c.Query("harga")
-	time := c.Query("time")
 	c.JSON(200, gin.H{
 		"message":      "item name",
 		"product name": name,
 		"Price":        harga,
-		"Time":         time,
+		"Time":         time.Now(),
 	})
 }
 
