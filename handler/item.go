@@ -2,8 +2,52 @@ package handler
 
 import (
 	"github.com/gin-gonic/gin"
+	"fmt"
+	"github.com/go-playground/validator/v10"
+	"net/http"
 	"time"
 )
+//TUGAS MEMBUAT POST
+type Mahasiswainput struct {
+	Nama     string  `json:"Nama_Mahasiswa" binding:"required"`
+	Prodi    string  `json:"Program_Studi" binding:"required"`
+	Umur     int     `json:"Umur" binding:"required"`
+	Ipk      float64 `json:"Ipk" binding:"required"`
+	Attitude string  `json:"Attitude" binding:"required"`
+	Semester int     `json:"Semester" binding:"required"`
+}
+func MahasiswaHandl(c *gin.Context) {
+	//nama mahasiswa
+	var mahasiswaInput Mahasiswainput
+
+	err := c.ShouldBindJSON(&mahasiswaInput)
+	//jika if tidak sama dengan nil(error), maka deklarasikan variabel array
+	if err != nil {
+		errorMessages := []string{}
+		//dimana kita akan melakukan perulanga n for untuk error, sehingga eror akan memprint pesan error didalam variabel errorMessage
+		for _, e := range err.(validator.ValidationErrors) {
+			errorMessage := fmt.Sprintf("Error %s, message: %s", e.Field(), e.ActualTag())
+			//selanjutnya kita append errorMessage di dalam variabel array errorMessages sehingga message error-
+			//dapat dideklarasikan lebih dari satu
+			errorMessages = append(errorMessages, errorMessage)
+		}
+		c.JSON(http.StatusBadRequest, gin.H{
+			"errors": errorMessages,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message":        "Berhasil input data",
+		"Nama Mahasiswa": mahasiswaInput.Nama,
+		"Program Studi":  mahasiswaInput.Prodi,
+		"Umur":           mahasiswaInput.Umur,
+		"Ipk":            mahasiswaInput.Ipk,
+		"Attitude":       mahasiswaInput.Attitude,
+		"Semester":       mahasiswaInput.Semester,
+		"Time":           time.Now(),
+	})
+}
+
 
 func QueryProduct(c *gin.Context) {
 	name := c.Query("name")
